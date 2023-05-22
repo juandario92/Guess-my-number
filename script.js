@@ -1,7 +1,8 @@
 'use strict';
-const numeroSecreto = Math.trunc(Math.random()*20) + 1; //Sumamos uno, porque siempre va a multiplar entre 0.01 y 0.99
+let numeroSecreto = Math.trunc(Math.random()*20) + 1; //Sumamos uno, porque siempre va a multiplar entre 0.01 y 0.99
 // document.querySelector('.number').textContent = numeroSecreto;
 let score = 20;
+let highScore = 0;
 
 document.querySelector(".check").addEventListener("click", function(){
     const valor = Number(document.querySelector(".guess").value);// el metodo Number convierte a numero lo que ingresemos como parametros.
@@ -14,6 +15,11 @@ document.querySelector(".check").addEventListener("click", function(){
         document.querySelector('.message').textContent = "Advinaste! Felicitaciones!"
         document.querySelector('body').style.backgroundColor = "#60b347";
         document.querySelector('.number').style.width = "30rem";
+        document.querySelector('.number').textContent = numeroSecreto;
+        if(score > highScore){
+            highScore = score;
+            document.querySelector('.highscore').textContent = highScore;
+        }
     }
     // Si el intento es un numero mayor al numero secreto
     else if (valor > numeroSecreto) {
@@ -38,4 +44,25 @@ document.querySelector(".check").addEventListener("click", function(){
             document.querySelector('.score').textContent = 0;
         }
     }
+    
+});
+document.querySelector(".again").addEventListener("click", function(){
+    console.log("se hizo click");
+    document.querySelector('.score').textContent = score;
+    document.querySelector('.message').textContent = "Start guessing..."
+    document.querySelector(".guess").value = '';
+    document.querySelector('body').style.backgroundColor = "#222";
+    document.querySelector('.number').textContent = "?";
+
+});
+
+document.querySelector(".again").addEventListener("click", function(){
+    score = 20; // Restablecer el valor de score a 20
+    document.querySelector('.score').textContent = score;
+    numeroSecreto = Math.trunc(Math.random()*20) + 1;
+    document.querySelector('.message').textContent = "Start guessing...";
+    document.querySelector(".guess").value = '';
+    document.querySelector('body').style.backgroundColor = "#222";
+    document.querySelector('.number').textContent = "?";
+    document.querySelector('.number').style.width = "15rem";
 });
